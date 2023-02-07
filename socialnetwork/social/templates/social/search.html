@@ -4,18 +4,15 @@
 <div class="container">
     <div class="row mt-5">
         <div class="col-md-5 col-sm-6">
-            <a href="{% url 'post-list' %}" class="btn btn-light">Back to Feed</a>
+            <a href="{% url 'post-list' %}" class="btn btn-light">Back To Home</a>
         </div>
     </div>
     {% for profile in profile_list %}
-        <div class="row justify-content-center mt-3">
-            <div class="col-md-5 col-sm-12 border-bottom">
+        <div class="row justify-content-center mt-3" style="font-weight: bold; font-size:18px;">
+            <div class="col-md-5 col-sm-12 border" style="text-align:center;">
                 <p class="post-text">
                     <a style="text-decoration: none;" href="{% url 'profile' profile.pk %}">
-                        <img class="round-circle post-img" height="30" width="30" src="{{ profile.picture.url }}"/>
-                    </a>
-                    <a style="text-decoration: none;" class="text-primary post-link" href="{% url 'profile' profile.pk %}">
-                        @{{ profile.user }}
+                        <img class="round-circle post-img" height="30" width="30" src="{{ profile.picture.url }}" style="float:initial!important;"/>
                     </a>
                 </p>
                 <p><a style="text-decoration:none;" class="text-primary" href="{% url 'profile' profile.pk %}">@{{ profile.user }}</a></p>

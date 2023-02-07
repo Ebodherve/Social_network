@@ -8,7 +8,7 @@ from django.shortcuts import redirect
 from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.urls import reverse_lazy 
-from .models import Post,Comment,UserProfile,Notification,ThreadModel,MessageModel,Image,Tag 
+from .models import Post,Comment,UserProfile,Notification,ThreadModel,MessageModel,Image,Tag,Video 
 from .forms import PostForm,CommentForm,ThreadForm,MessageForm,SharedForm,ExploreForm
 from django.views.generic.edit import UpdateView,DeleteView
 
@@ -19,14 +19,18 @@ class PostListView(LoginRequiredMixin,View):
     # ici on cree la fonction get pour recuperer les posts qui ont été crée
     def get(self,request,*args,**kwargs):
         logged_in_user = request.user
+        users = UserProfile.objects.all()
         # ici on recupere les posts de l'utilisateur courant et de ces amis
         posts =  Post.objects.filter(author__profile__followers__in = [logged_in_user.id]).order_by('-created_on') | Post.objects.filter( author__profile__in = [logged_in_user.id]).order_by('-created_on')  
+        tags = Tag.objects.all()
         form = PostForm()
         share_form = SharedForm()
         context={
             'post_list':posts,
             'shareform': share_form,
             'form': form,
+            'tags':tags,
+            'users':users,
         }
 
         return render(request,'social/post_list.html',context)
@@ -34,10 +38,13 @@ class PostListView(LoginRequiredMixin,View):
     # ici on crée des post si le formulaire existe
     def post(self,request,*args,**kwargs):
         logged_in_user = request.user
+        users = UserProfile.objects.all()
         # ici on recupere les posts de l'utilisateur courant et de ces amis et on les lui affiche
-        posts =    Post.objects.filter(author__profile__followers__in = [logged_in_user.id]).order_by('-created_on') | Post.objects.filter( author__profile__in = [logged_in_user.id]).order_by('-created_on') 
+        posts = Post.objects.filter(author__profile__followers__in = [logged_in_user.id]).order_by('-created_on') | Post.objects.filter( author__profile__in = [logged_in_user.id]).order_by('-created_on') 
+        tags = Tag.objects.all()
         form = PostForm(request.POST,request.FILES) # on passe un element de type post a notre formulaire
         files = request.FILES.getlist('image')
+        filesV = request.FILES.getlist('video')
         share_form = SharedForm()
 
         if form.is_valid():
@@ -51,12 +58,19 @@ class PostListView(LoginRequiredMixin,View):
                 img.save()
                 new_post.image.add(img)
             
+            for f in filesV:
+                vid = Video(video= f)
+                vid.save()
+                new_post.video.add(vid)
+            
             new_post.save()
 
         context={
             'post_list':posts,
             'shareform': share_form,
             'form': form,
+            'tags':tags,
+            'users':users,
         }
 
         return render(request,'social/post_list.html',context)
