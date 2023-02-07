@@ -1,0 +1,6 @@
+django-crispy-forms
+django-allauth
+django-embed-video
+Pillow
+
+
