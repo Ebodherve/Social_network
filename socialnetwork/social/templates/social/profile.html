@@ -4,10 +4,10 @@
 <div class="container">
     <div class="row mt-5">
         <div class="col-md-5 col-sm-6">
-            <a href="{% url 'post-list' %}" class="btn btn-light">Back to Feed</a>
+            <a href="{% url 'post-list' %}" class="btn btn-light">Back to Home</a>
         </div>
     </div>
-    <div class="row justify-content-center  mt-5">
+    <div class="row justify-content-center mt-5">
         <div class="card shadow-sm col-md-8  col-sm-6 border-bottom px-5 pt-3" >
             <div class="text-center">
                 <img src="{{ profile.picture.url }}" class="rounded-circle" width="100" height="100"/>
@@ -31,11 +31,10 @@
                 </div>
                 
                 {% if profile.bio %}
-                <p>{{ profile.bio }}</p>
+                <p><b>Biographie &nbsp;: &nbsp;{{ profile.bio }}</b></p>
                 {% endif %}
                 <div class="mb-3">
-                    <a href="{% url 'list-followers' profile.pk %}" class="post-link"> Followers:{{ number_of_followers }}</a>
-              
+                    <b><a href="{% url 'list-followers' profile.pk %}" class="post-link"> Followers:{{ number_of_followers }}</a></b>
                 </div>
             </div>
         
@@ -71,12 +70,12 @@
 
     {% for post in posts %}
     <div class="row justify-content-center mt-5">
-        <div class="col-md-8 col-sm-12 border-bottom">
+        <div class="col-md-8 col-sm-12 border">
             <p class="post-text">
                 <a style="text-decoration: none;" href="{% url 'profile' post.author.profile.pk %}">
                     <img class="round-circle post-img" height="30" width="30" src="{{ post.author.profile.picture.url }}"/>
                 </a>
-                <a style="text-decoration: none;" class="text-primary post-link" href="{% url 'profile' post.author.profile.pk %}">
+                <a style="text-decoration: none;" class="text-danger post-link" href="{% url 'profile' post.author.profile.pk %}">
                     @{{ post.author }}
                 </a>&nbsp;{{ post.created_on}}
             </p>

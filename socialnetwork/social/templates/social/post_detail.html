@@ -6,11 +6,11 @@
 <div class="container">
     <div class="row mt-5">
         <div class="col-md-5 col-sm-6">
-            <a href="{% url 'post-list' %}" class="btn btn-light">Back to Feed</a>
+            <a href="{% url 'post-list' %}" class="btn btn-light">Back To Home</a>
         </div>
     </div>
     <div class="row justify-content-center mt-3">
-        <div class="col-md-5 col-sm-12 border-bottom">
+        <div class="col-md-5 col-sm-12 border">
             <p class="post-text">
                 <a class="post-link" style="text-decoration: none;" href="{% url 'profile' post.author.profile.pk %}">
                     <img class="round-circle post-img" height="30" width="30" src="{{ post.author.profile.picture.url }}"/>
@@ -26,8 +26,19 @@
             {% if post.image.count >  0 %}
                 <div class="row">
                     {% for img in post.image.all %}
-                    <div class="col-md-6 col-xs-12">
+                    <div class="img100percent">
                         <img src = "{{ img.image.url }}" class="post-image" />
+                    </div>
+                    {% endfor %}
+                </div>    
+            {% endif %}
+            {% if post.video.count >  0 %}
+                <div class="row">
+                    {% for vid in post.video.all %}
+                    <div class="img100percent" style="margin: 0 auto; text-align: center;">
+                        <video controls class="post-video">
+                            <source src="{{ vid.video.url }}" type=video/mp4>
+                            </video>
                     </div>
                     {% endfor %}
                 </div>    
@@ -57,7 +68,7 @@
         </div>
     </div>
 
-    <div class="row justify-content-center mt-3 mb-5">
+    <div class="row justify-content-center mt-3">
         <div class="col-md-5 col-sm-12">
            <form method="POST">
                 {% csrf_token %}
@@ -68,10 +79,11 @@
            </form>
         </div>
     </div>
+    <br><br>
     {% for comment in comments %}
     {% if comment.is_parent %}
-    <div class="row justify-content-center mt-3 mb-5">
-        <div class="col-md-5 col-sm-12 border-bottom">
+    <div class="row justify-content-center" style="margin-bottom:5px;">
+        <div class="col-md-5 col-sm-12 border">
             <p> 
                 <p class="post-text">
                     <a style="text-decoration: none;" href="{% url 'profile' comment.author.profile.pk %}">
@@ -108,7 +120,7 @@
             </div>
         </div>
     </div>
-    <div class="row justify-content-center mt-3 mb-5 d-none" id="{{ comment.pk }}">
+    <div class="row justify-content-center mt-3 d-none" id="{{ comment.pk }}" style="margin-bottom: 5px;">
         <div class="col-md-5 col-sm-12">
             <form method="POST" action="{% url 'comment-reply' post.pk comment.pk %}">
                 {% csrf_token %}
@@ -118,10 +130,11 @@
                 </div>
             </form>
         </div>
+        <br><br>
     </div>
     {% for child_comment in comment.children %}
-    <div class="row justify-content-center mt-3 mb-5 child-comment" style="margin-left:2rem;">
-        <div class="col-md-5 col-sm-12 border-bottom">
+    <div class="row justify-content-center child-comment" style="margin-left:2rem;margin-top:5px;" >
+        <div class="col-md-5 col-sm-12 border">
             <p> 
                 <p class="post-text">
                     <a style="text-decoration: none;" href="{% url 'profile' child_comment.author.profile.pk %}">

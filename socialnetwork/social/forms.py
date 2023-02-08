@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post,Comment,MessageModel
+from .models import Post,Comment,MessageModel,Video
 
 class PostForm(forms.ModelForm):
     # ici on crée un champ body avec ces attributs en definissant son type
@@ -13,7 +13,17 @@ class PostForm(forms.ModelForm):
     image = forms.ImageField(
         required=False,
         widget = forms.ClearableFileInput(attrs = {
-            'multiple':True
+            'multiple':True,
+            'class':'form-control',
+            'id':'formFile'
+        })
+    )
+    video = forms.FileField(
+        required=False,
+        widget = forms.ClearableFileInput(attrs = {
+            'multiple':True,
+            'class':'form-control',
+            'id':'formFile'
         })
     )
     # ici on dit le model qu'on vas utiliser et les champs qui iront avec dans le fichier HTML QUI vas l'Appeler
@@ -41,7 +51,14 @@ class ThreadForm(forms.Form):
 # ici c'Est le formulaire pour les tchat(creer les messages) ou on eut avoir soit une image ou du texte
 class MessageForm(forms.ModelForm):
     body = forms.CharField(label='',max_length=1000)
-    image = forms.ImageField(required=False)
+    image = forms.ImageField(
+        required=False,
+        widget = forms.ClearableFileInput(attrs = {
+            'multiple':True,
+            'class':'form-control',
+            'id':'formFile'
+        })
+    )
 
     class Meta:
         model = MessageModel

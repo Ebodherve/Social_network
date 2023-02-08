@@ -1,5 +1,5 @@
 {% load custom_tags %}
-<div class="container">
+<div class="container" style="position: fixed;z-index:100; min-width:100%!important; top:0; background-color: aliceblue;clear: both;">
   <nav class="navbar navbar-expand-lg navbar-light">
       <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,8 +10,18 @@
         href="{% url 'post-list' %}" 
         {% else %} 
         href="{% url 'index' %}"
+        {% endif %}> 
+        {% load static %} <img src="{% static 'image/image.png'%}" alt="home" style="width: 60px;"/>
+        </a>
+        <br>
+        <a class="navbar-brand" 
+        {% if user.is_authenticated %} 
+        href="{% url 'post-list' %}" 
+        {% else %} 
+        href="{% url 'index' %}"
         {% endif %}
-        ><i class="fas fa-comment"></i> Social Network</a>
+        >Social Network Of Cameroon<br>&nbsp;&nbsp;&nbsp;&nbsp;Peace-Work-Fatherland</a>
+        {% if user.is_authenticated %}
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li>
@@ -22,15 +32,24 @@
           </ul>
           <form class="d-flex" method="GET" action="{% url 'profile-search' %}">
               <div class="input-group">
-                  <span class="input-group-text" id="basic-addon1">@</span>
-                  <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" name="query" value="{{ request.GET.query }}">
-                  <button class="remove-default-btn" style="border:none; background-color:transparent; box-shadow:none;" type="submit">
+                  <span class="input-group-text bg-primary" style="color: white; font-weight: bold; font-size: 20px;" id="basic-addon1">@</span>
+                  <input type="text" class="form-control"  style="width:155px;" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" name="query" value="{{ request.GET.query }}">
+                  <button class="remove-default-btn input-group-text bg-primary"  style="color: white;border:none; background-color:transparent; box-shadow:none;" type="submit">
                     <i class="fas fa-search"></i>
                   </button>
               </div>
-          </form>
+          </form>&nbsp;&nbsp;
+          <div class="languages">
+            <span><a class="btn btn-secondary" href="#">Eng</a></span>
+            <ul style="list-style-type: none; text-decoration: none;">
+              <li><a href="#">French</a></li>
+              <li><a href="#">Fufulde</a></li>
+              <li><a href="#">Sawa</a></li>
+              <li><a href="#">Eto'n</a></li>
+              <li><a href="#">Bamoun</a></li>
+            </ul>
+          </div>
           <!-- ici on définit la section de logout si la personne est deja connectée-->
-          {% if user.is_authenticated %}
           <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-dark"  data-bs-toggle="dropdown" role="buton" aria-expanded="false">
                 &nbsp;&nbsp;<i class="fas fa-user"></i>
@@ -39,15 +58,16 @@
               <li><a class="dropdown-item" href="{% url 'profile' request.user.profile.pk %}">Profile</a></li>
               <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a></li>
             </ul>
-          </div>
-          <div class="nav-item inbox-icon-container">
+          </div>&nbsp;&nbsp;&nbsp;&nbsp;
+          <div class="nav-item">
             <a href="{% url 'inbox' %}" class="inbox-icon"><i class="far fa-paper-plane"></i></a>
           </div>
           <div class="nav-item">
               {% show_notification %}
-          {% endif %}
           </div>
+          {% endif %}
         </div>
       </div>
   </nav>
 </div>
+<div class="space"></div>

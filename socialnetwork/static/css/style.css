@@ -1,3 +1,6 @@
+html{
+    scrollbar-gutter: stable!important;
+}
 .remove-btn{
    background-color: transparent;
    border: none;
@@ -9,8 +12,13 @@
 .post-link{
     text-decoration: none;
 }
+p{
+    margin-bottom: 2px!important;
+    margin-top: 2px!important;
+}
 .post-text{
     padding:0.5rem;
+    margin-bottom: 0;
 }
 .post-img{
     float: left;
@@ -42,12 +50,12 @@
 .dropdown-content{
     position: absolute;
     background-color:#f1f1f1;
-    min-width: 325px;
+    min-width: 100%;
     box-shadow: 0px 8px 8px 0px rgba(0,0,0,0.2);
     z-index:1;
     font-size: 0.9rem;
+    left: -65px;
 }
-
 .dropdown-content a{
     color:#000;
     padding:12px 16px;
@@ -113,8 +121,9 @@
 
 .message-image{
     border-radius: 10px;
-    max-width: 35%;
-    height: auto;
+}
+.img100percent{
+    width: 100%!important;
 }
 .inbox-icon{
     margin-right: 5px;
@@ -128,4 +137,109 @@
 .body a{
     text-decoration: none;
     margin-left: 5px;
+}
+.remove-default-btn{
+    background-color:#d5d6d6;
+}
+.comment-post{
+    margin-left: 4px;
+}
+.list-group-item{
+    padding: 0.2rem!important;
+}
+.sub-container-1{
+    margin: 0 auto;
+    margin-top: 5px;
+    float:left;
+}
+.sub-container-1 ul{
+    min-width: 75%;
+    text-align: center;
+    font-size: 20px;
+    margin: 0rem!important;
+}
+.sub-container-1 li a{
+    text-decoration: none;
+    min-width: 100%;
+    padding: 5px 25px 5px 25px;
+    font-weight: bold;
+    color: #00a1ff;
+}
+.sub-container-1 li{
+    min-width: 100%;
+    padding:0px 5px 0px 5px;
+}
+
+.sub-container-2{
+    width: 45%!important;
+    margin-left: 20rem;
+    margin-right: 2rem;
+}
+
+.sub-container-2 div{
+    width: 100%!important;
+    margin-bottom: 5px;
+}
+
+.Tags-Title{
+    font-size: 20px!important;
+    color: white!important;
+    font-weight: bold;
+}
+
+.sub-container-3{
+    margin: 0 auto;
+    margin-top: 5px;
+    float: right;
+    display: flex;
+}
+.sub-container-3 ul{
+    min-width: 75%;
+    text-align: center;
+    font-size: 15px;
+    margin: 0rem!important;
+}
+.sub-container-3 li a{
+    text-decoration: none;
+    min-width: 100%;
+    font-weight: bold;
+    color: #00a1ff;
+}
+.sub-container-3 li{
+    min-width: 100%;
+    padding:0px 5px 0px 5px;
+}
+.post-video{
+    max-width:100%!important;
+}
+video{
+    border-radius: 10px;
+}
+.space{
+    margin-top: 7rem;
+}
+.languages{
+    position: relative;
+}
+.languages span:hover{
+    background-color: brown;
+}
+.languages ul{
+    top: 42px;
+    position: absolute;
+    left: -15px;
+    padding: 0;
+    background-color: hsl(202, 100%, 50%);
+    text-align: center;
+    display: none;
+}
+ul li{
+    display: block;
+    padding: 5px;
+    color: white;
+    border: white 2px solid;
+}
+ul li a{
+    text-decoration: none;
+    color: white;
 }

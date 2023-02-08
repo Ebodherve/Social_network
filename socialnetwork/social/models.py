@@ -3,11 +3,13 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from .validators import file_size
 
 class Post(models.Model):
     shared_body = models.TextField(blank=True,null=True)
     body = models.TextField()
     image = models.ManyToManyField('Image',blank=True)
+    video = models.ManyToManyField('Video',blank=True)
     created_on = models.DateTimeField(default = timezone.now)
     shared_on = models.DateTimeField(blank=True,null=True)
     author = models.ForeignKey(User,on_delete = models.CASCADE)
@@ -115,6 +117,9 @@ class MessageModel(models.Model):
     image = models.ImageField(upload_to='uploads/message_photos',blank = True,null=True)
     date = models.DateTimeField(default=timezone.now)
     is_read = models.BooleanField(default=False)
+
+class Video(models.Model):
+    video = models.FileField(upload_to="video/%y",validators=[file_size])
 
 class Image(models.Model):
     image = models.ImageField(upload_to='uploads/post_photos',blank=True,null=True)
